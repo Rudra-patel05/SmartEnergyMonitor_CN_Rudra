@@ -1,0 +1,2 @@
+Total Evaluation Records,Normal Records (Ground Truth),Synthetic Anomalies (Ground Truth),Detected Anomalies (Total),Detected Normal (Total),True Positives (TP),False Positives (FP),True Negatives (TN),False Negatives (FN),Precision,Recall,F1-Score,False Positive Rate (FPR),Model Contamination Parameter
+629,605,24,47,582,22,25,580,2,0.46808510638297873,0.9166666666666666,0.6197183098591549,0.04132231404958678,0.04
