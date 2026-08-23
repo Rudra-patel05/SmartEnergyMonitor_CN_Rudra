@@ -127,6 +127,31 @@ python iot/simulator.py --readings 200
 python iot/simulator.py --readings 50 --interval 600
 ```
 
+### Send Data to Backend API
+
+By default, the simulator only saves to local files. To automatically send the generated readings to the FastAPI backend via HTTP POST, use the `--send-api` flag. The default backend URL is `http://127.0.0.1:8000`.
+
+```bash
+python iot/simulator.py --readings 20 --send-api
+```
+
+You can optionally override the backend URL:
+
+```bash
+python iot/simulator.py --send-api --api-url http://192.168.1.100:8000
+```
+
+#### Example Output (API Sending)
+```text
+  Total readings generated : 100
+  Validation errors        : 0
+
+  Sending 100 readings to API at http://127.0.0.1:8000...
+    Sent: 100
+    Successful: 100
+    Failed: 0
+```
+
 ### Help
 
 ```bash

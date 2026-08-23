@@ -39,6 +39,19 @@ This module provides the REST API and database integration for storing and analy
    ```
    This script will read `../iot/data/energy_readings.json` and insert it into the database via the API.
 
+## IoT Simulator Integration
+
+As of **Day 4**, the Virtual IoT Simulator can send data directly to the backend in real-time or in batch via HTTP POST instead of requiring the manual `import_data.py` script. 
+
+To use this feature, ensure the FastAPI server is running, then use the simulator's `--send-api` flag:
+
+```bash
+# In the iot directory:
+python simulator.py --readings 20 --send-api
+```
+
+The simulator uses the `/api/energy/readings/bulk` endpoint to efficiently transmit data.
+
 ## Running the Server
 
 Start the API server using Uvicorn:

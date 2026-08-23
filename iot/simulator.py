@@ -36,6 +36,7 @@ from config import (
     JSON_OUTPUT_PATH,
 )
 from devices import VirtualEnergyMeter
+from api_client import ApiClient
 
 
 # ============================================================
@@ -262,6 +263,17 @@ def main() -> None:
         default=DEFAULT_INTERVAL_SECONDS,
         help=f"Interval between readings in seconds (default: {DEFAULT_INTERVAL_SECONDS})",
     )
+    parser.add_argument(
+        "--send-api",
+        action="store_true",
+        help="Send generated readings to the backend API",
+    )
+    parser.add_argument(
+        "--api-url",
+        type=str,
+        default="http://127.0.0.1:8000",
+        help="Base URL of the backend API (default: http://127.0.0.1:8000)",
+    )
     args = parser.parse_args()
 
     # --- Print banner ---
@@ -305,6 +317,25 @@ def main() -> None:
 
     print(f"\n  Total readings generated : {len(all_readings)}")
     print(f"  Validation errors        : {validation_errors}")
+
+    # --- Send to API if requested ---
+    if args.send_api:
+        print(f"\n  Sending {len(all_readings)} readings to API at {args.api_url}...")
+        client = ApiClient(base_url=args.api_url)
+        
+        # Send in bulk
+        api_success = 0
+        api_failed = 0
+        
+        success = client.send_bulk_readings(all_readings)
+        if success:
+            api_success = len(all_readings)
+        else:
+            api_failed = len(all_readings)
+            
+        print(f"    Sent: {len(all_readings)}")
+        print(f"    Successful: {api_success}")
+        print(f"    Failed: {api_failed}")
 
     # --- Save output files ---
     print("\n  Saving output files...")

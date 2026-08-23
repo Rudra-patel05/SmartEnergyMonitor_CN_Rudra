@@ -1,0 +1,22 @@
+{
+  "feature_columns": [
+    "voltage",
+    "current",
+    "power",
+    "energy",
+    "temperature",
+    "occupancy",
+    "hour",
+    "minute",
+    "day_of_week",
+    "is_weekend",
+    "previous_energy",
+    "previous_power",
+    "energy_rolling_mean_3",
+    "power_rolling_mean_3",
+    "energy_delta"
+  ],
+  "target_column": "target_next_energy",
+  "best_model": "XGBoost",
+  "timestamp_saved": "2026-08-23 22:41:50"
+}
