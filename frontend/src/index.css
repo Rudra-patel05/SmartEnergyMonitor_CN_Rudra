@@ -1,0 +1,69 @@
+/* ============================
+   Smart Campus Energy Monitor
+   Design System – CSS Variables
+   ============================ */
+
+:root {
+  /* Primary palette */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #eff6ff;
+
+  /* Surfaces */
+  --color-bg: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-hover: #f0f4f8;
+
+  /* Text */
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+
+  /* Borders */
+  --color-border: #e2e8f0;
+
+  /* Error */
+  --color-error: #dc2626;
+  --color-error-border: #fecaca;
+
+  /* Chart colors */
+  --color-chart-energy: #10b981;
+  --color-chart-power: #f59e0b;
+}
+
+/* ============================
+   Global Reset & Defaults
+   ============================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Shared section title used across components */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--color-text);
+}
