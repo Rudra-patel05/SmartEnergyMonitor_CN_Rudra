@@ -77,6 +77,8 @@ FastAPI automatically generates interactive API documentation. Once the server i
 | `GET` | `/api/energy/readings` | Retrieve readings (supports filtering by `device_id`, `area`) |
 | `GET` | `/api/energy/{device_id}` | Retrieve readings for a specific device |
 | `GET` | `/api/energy/summary` | Get aggregated summary statistics |
+| `POST` | `/api/prediction/energy/predict` | Predict next energy for a device using XGBoost (Day 9) |
+| `GET` | `/api/prediction/energy/predictions/latest` | Get latest predictions for all devices (Day 9) |
 
 ## Example Request (Single Reading)
 

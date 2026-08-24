@@ -2,3 +2,9 @@ fastapi
 uvicorn
 sqlalchemy
 pydantic>=2.7,<3
+# Day 9 — ML prediction dependencies
+xgboost
+scikit-learn
+joblib
+pandas
+numpy

@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchSummary, fetchReadings } from '../services/api';
+import { fetchLatestPredictions } from '../services/predictionApi'; // Day 9
 import Header from '../components/Header';
 import SummaryCards from '../components/SummaryCards';
 import AreaFilter from '../components/AreaFilter';
 import ReadingsTable from '../components/ReadingsTable';
 import EnergyChart from '../components/EnergyChart';
 import PowerChart from '../components/PowerChart';
+import PredictionPanel from '../components/PredictionPanel'; // Day 9
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import './Dashboard.css';
@@ -16,6 +18,11 @@ function Dashboard() {
   const [selectedArea, setSelectedArea] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Day 9 — prediction state (independent from main data fetch)
+  const [predictions, setPredictions] = useState([]);
+  const [predLoading, setPredLoading] = useState(false);
+  const [predError, setPredError] = useState(null);
 
   const loadData = useCallback(async (area = selectedArea) => {
     setLoading(true);
@@ -40,9 +47,29 @@ function Dashboard() {
     }
   }, [selectedArea]);
 
+  // Day 9 — load predictions independently so errors never break main dashboard
+  const loadPredictions = useCallback(async () => {
+    setPredLoading(true);
+    setPredError(null);
+    try {
+      const data = await fetchLatestPredictions();
+      setPredictions(data);
+    } catch (err) {
+      console.error('Failed to fetch predictions:', err);
+      const message =
+        err.code === 'ERR_NETWORK' || err.code === 'ECONNABORTED'
+          ? 'Cannot connect to the backend. Ensure FastAPI is running.'
+          : err.response?.data?.detail || err.message || 'Prediction fetch failed.';
+      setPredError(message);
+    } finally {
+      setPredLoading(false);
+    }
+  }, []);
+
   // Load data on mount
   useEffect(() => {
     loadData('');
+    loadPredictions(); // Day 9
   }, []);
 
   // Reload data when area filter changes
@@ -73,6 +100,13 @@ function Dashboard() {
               <EnergyChart readings={readings} />
               <PowerChart readings={readings} />
             </div>
+            {/* Day 9 — XGBoost prediction panel, always rendered independently */}
+            <PredictionPanel
+              predictions={predictions}
+              loading={predLoading}
+              error={predError}
+              onRefresh={loadPredictions}
+            />
             <ReadingsTable readings={readings} />
           </>
         )}

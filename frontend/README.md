@@ -2,7 +2,7 @@
 
 > React + Vite web dashboard for the Smart Campus Energy Monitoring System.
 
-## Status: Day 8 – Dashboard Foundation ✅
+## Status: Day 9 – Prediction Integration ✅
 
 ## Tech Stack
 
@@ -61,11 +61,14 @@ frontend/
 │   │   ├── EnergyChart.jsx    – Energy consumption line chart
 │   │   ├── PowerChart.jsx     – Power usage line chart
 │   │   ├── LoadingSpinner.jsx – Loading indicator
-│   │   └── ErrorMessage.jsx   – Error state with retry
+│   │   ├── ErrorMessage.jsx   – Error state with retry
+│   │   ├── PredictionPanel.jsx– AI Energy Predictions component (Day 9)
+│   │   └── PredictionPanel.css– AI Energy Predictions styles (Day 9)
 │   ├── pages/
 │   │   └── Dashboard.jsx      – Main dashboard page
 │   ├── services/
-│   │   └── api.js             – Centralized API client
+│   │   ├── api.js             – Centralized API client
+│   │   └── predictionApi.js   – Prediction API client (Day 9)
 │   ├── App.jsx
 │   ├── main.jsx
 │   ├── index.css              – Global design tokens
@@ -82,9 +85,10 @@ frontend/
 3. **Energy Chart** – Line chart showing energy consumption over time
 4. **Power Chart** – Line chart showing power usage over time
 5. **Readings Table** – Tabular view of recent sensor readings
-6. **Loading State** – Spinner shown while fetching data
-7. **Error State** – Clear error message with retry button when backend is down
-8. **Empty State** – Graceful handling when no data is available
+6. **Prediction Panel (Day 9)** – Display AI-predicted next energy usage for each device
+7. **Loading State** – Spinner shown while fetching data
+8. **Error State** – Clear error message with retry button when backend is down
+9. **Empty State** – Graceful handling when no data is available
 
 ## API Endpoints Used
 
@@ -92,3 +96,5 @@ frontend/
 |---|---|---|
 | `/api/energy/summary` | GET | Aggregated summary statistics |
 | `/api/energy/readings` | GET | Recent readings (supports `?area=` filter) |
+| `/api/prediction/energy/predictions/latest` | GET | Latest AI predictions for all devices (Day 9) |
+| `/api/prediction/energy/predict` | POST | Request AI prediction for a specific device (Day 9) |

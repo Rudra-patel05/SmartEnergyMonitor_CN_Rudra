@@ -61,6 +61,18 @@ ai/
 
 ---
 
+## 3.5. Prediction API Integration (Day 9)
+
+The best performing model (XGBoost) was integrated into the FastAPI backend on **Day 9**.
+
+### Architecture
+- **Separate Router**: A dedicated `prediction.py` router with the `/api/prediction` prefix was created to avoid duplicate routes and ensure a clean separation from the existing energy data endpoints.
+- **On-Request Inference**: Predictions are generated on-the-fly and are not stored in the database, preserving the Day 8 schema.
+- **Dynamic Feature Derivation**: The prediction service extracts the last 3 historical readings from SQLite to derive all required 15 features (including time and rolling mean features) without requiring any future data.
+- **Frontend Integration**: A new `PredictionPanel` component in the React dashboard dynamically displays the AI's predicted next energy usage for each device.
+
+---
+
 ## 4. Anomaly Detection (Day 7)
 
 ### 4.1. Anomaly Detection Method: Isolation Forest

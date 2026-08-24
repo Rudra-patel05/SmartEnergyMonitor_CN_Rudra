@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, validator
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 class EnergyReadingBase(BaseModel):
@@ -44,3 +44,27 @@ class EnergySummary(BaseModel):
     average_energy: float
     max_power: float
     total_energy: float
+
+
+# ---------------------------------------------------------------------------
+# Day 9 — Prediction schemas
+# ---------------------------------------------------------------------------
+
+class PredictionRequest(BaseModel):
+    """Request body for POST /api/prediction/energy/predict."""
+    device_id: str = Field(
+        ...,
+        description="Device ID to predict next energy for (e.g. LAB001)",
+        min_length=3,
+    )
+
+
+class PredictionResponse(BaseModel):
+    """Response from the XGBoost energy prediction endpoint."""
+    device_id: str = Field(..., description="Device identifier")
+    area: str = Field(..., description="Campus area of the device")
+    timestamp: str = Field(..., description="Timestamp when prediction was generated (UTC)")
+    predicted_next_energy: float = Field(
+        ..., description="Predicted next cumulative energy reading in kWh"
+    )
+    model_name: str = Field(..., description="Name of the ML model used (XGBoost)")
