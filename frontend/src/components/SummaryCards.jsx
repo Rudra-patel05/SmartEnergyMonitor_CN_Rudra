@@ -1,6 +1,7 @@
 import './SummaryCards.css';
+import './SummaryCards.css';
 
-function SummaryCards({ summary }) {
+function SummaryCards({ summary, activeAnomaliesCount = 0 }) {
   if (!summary) return null;
 
   const cards = [
@@ -31,6 +32,13 @@ function SummaryCards({ summary }) {
       value: summary.total_energy.toFixed(4),
       icon: '🔋',
       unit: 'kWh',
+    },
+    {
+      id: 'active-anomalies',
+      label: 'Active Anomalies',
+      value: activeAnomaliesCount.toString(),
+      icon: '🚨',
+      unit: '',
     },
   ];
 

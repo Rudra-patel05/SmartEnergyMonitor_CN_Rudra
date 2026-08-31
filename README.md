@@ -125,8 +125,8 @@ The system is organized into **seven layers**, each addressing a specific concer
 | **Phase 1** | Project setup, architecture, documentation, folder structure | ✅ In Progress |
 | **Phase 2** | IoT simulator development, database schema, backend API skeleton | ⬜ Planned |
 | **Phase 3** | Backend API endpoints, data ingestion pipeline, authentication | ⬜ Planned |
-| **Phase 4** | AI/ML model training – prediction and anomaly detection | ⬜ Planned |
-| **Phase 5** | React dashboard development and API integration | ⬜ Planned |
+| **Phase 4** | AI/ML model training – prediction and anomaly detection | ✅ Completed |
+| **Phase 5** | React dashboard development and API integration | ✅ Completed |
 | **Phase 6** | Network simulation in Cisco Packet Tracer | ⬜ Planned |
 | **Phase 7** | Security hardening, testing, and documentation finalization | ⬜ Planned |
 | **Phase 8** | Final integration, demo preparation, and project report | ⬜ Planned |

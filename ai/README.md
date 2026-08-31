@@ -128,3 +128,16 @@ Because the clean baseline telemetry represents normal operating conditions, a d
 ### 4.6. Limitations & Future Work
 1. **Unsupervised Contamination Tuning**: Fixed contamination ($0.04$) controls the threshold; dynamic thresholding based on rolling statistics will be explored in production.
 2. **Contextual Baselines**: Multi-sensor fusion (e.g., ambient outdoor weather vs. indoor HVAC) will further reduce false positives during campus events.
+
+---
+
+## 5. Anomaly Detection API Integration (Day 10)
+
+The Isolation Forest anomaly model was successfully integrated into the FastAPI backend on **Day 10**.
+
+### Architecture
+- **In-Memory Training Initialization**: The `anomaly_service.py` securely loads the clean baseline telemetry data (`ai/data/processed/clean_energy_dataset.csv`) directly on backend startup. It re-trains the exact same Isolation Forest algorithm in-memory to ensure 100% logic parity.
+- **Dedicated Router**: Exposed under `backend/app/routes/anomaly.py` via endpoints (`POST /api/anomaly/check` and `GET /api/anomaly/latest`).
+- **Real-Time Feature Engineering**: The backend calculates dynamic features such as `energy_delta` and `power_rolling_mean_3` by polling recent state telemetry dynamically and securely handling missing histories. 
+- **Frontend Panel Integration**: A sleek `AnomalyPanel` was developed in React (`frontend/src/components/AnomalyPanel.jsx`) to display live anomalies clearly, tracking active faults. 
+- **Controlled Test Environment**: Verification relies on controlled payload scripts rather than permanently mutating or corrupting the `clean_energy_dataset.csv` or IoT simulator.

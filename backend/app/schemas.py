@@ -68,3 +68,29 @@ class PredictionResponse(BaseModel):
         ..., description="Predicted next cumulative energy reading in kWh"
     )
     model_name: str = Field(..., description="Name of the ML model used (XGBoost)")
+
+# ---------------------------------------------------------------------------
+# Day 10 — Anomaly detection schemas
+# ---------------------------------------------------------------------------
+
+class AnomalyCheckRequest(BaseModel):
+    """Request body for POST /api/anomaly/check."""
+    device_id: str = Field(..., description="Unique identifier for the device", min_length=3)
+    area: str = Field(..., description="Campus area name")
+    timestamp: str = Field(..., description="Timestamp of the reading")
+    voltage: float = Field(..., description="Voltage in Volts")
+    current: float = Field(..., description="Current in Amperes")
+    power: float = Field(..., description="Power in Watts")
+    energy: float = Field(..., description="Cumulative energy in kWh")
+    temperature: float = Field(..., description="Temperature in Celsius")
+    occupancy: int = Field(..., description="Occupancy count")
+
+
+class AnomalyResponse(BaseModel):
+    """Response from the anomaly detection endpoint."""
+    device_id: str = Field(..., description="Device identifier")
+    area: str = Field(..., description="Campus area of the device")
+    timestamp: str = Field(..., description="Timestamp of the reading")
+    anomaly_flag: int = Field(..., description="1 if anomaly detected, 0 if normal")
+    anomaly_score: float = Field(..., description="Anomaly score from Isolation Forest")
+    status: str = Field(..., description="'ANOMALY' or 'NORMAL'")

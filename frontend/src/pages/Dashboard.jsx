@@ -8,6 +8,7 @@ import ReadingsTable from '../components/ReadingsTable';
 import EnergyChart from '../components/EnergyChart';
 import PowerChart from '../components/PowerChart';
 import PredictionPanel from '../components/PredictionPanel'; // Day 9
+import AnomalyPanel from '../components/AnomalyPanel'; // Day 10
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import './Dashboard.css';
@@ -23,6 +24,9 @@ function Dashboard() {
   const [predictions, setPredictions] = useState([]);
   const [predLoading, setPredLoading] = useState(false);
   const [predError, setPredError] = useState(null);
+
+  // Day 10 — anomaly count state
+  const [activeAnomaliesCount, setActiveAnomaliesCount] = useState(0);
 
   const loadData = useCallback(async (area = selectedArea) => {
     setLoading(true);
@@ -94,8 +98,10 @@ function Dashboard() {
 
         {!loading && !error && (
           <>
-            <SummaryCards summary={summary} />
+            <SummaryCards summary={summary} activeAnomaliesCount={activeAnomaliesCount} />
             <AreaFilter selectedArea={selectedArea} onAreaChange={handleAreaChange} />
+            {/* Day 10 — Anomaly Panel */}
+            <AnomalyPanel onAnomaliesUpdate={setActiveAnomaliesCount} />
             <div className="charts-grid">
               <EnergyChart readings={readings} />
               <PowerChart readings={readings} />

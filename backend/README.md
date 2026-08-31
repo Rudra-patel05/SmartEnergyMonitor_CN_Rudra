@@ -79,6 +79,8 @@ FastAPI automatically generates interactive API documentation. Once the server i
 | `GET` | `/api/energy/summary` | Get aggregated summary statistics |
 | `POST` | `/api/prediction/energy/predict` | Predict next energy for a device using XGBoost (Day 9) |
 | `GET` | `/api/prediction/energy/predictions/latest` | Get latest predictions for all devices (Day 9) |
+| `POST` | `/api/anomaly/check` | Check anomaly status for a specific feature payload (Day 10) |
+| `GET` | `/api/anomaly/latest` | Get latest anomaly status for all devices (Day 10) |
 
 ## Example Request (Single Reading)
 

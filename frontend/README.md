@@ -2,7 +2,7 @@
 
 > React + Vite web dashboard for the Smart Campus Energy Monitoring System.
 
-## Status: Day 9 – Prediction Integration ✅
+## Status: Day 10 – Anomaly Detection Integration ✅
 
 ## Tech Stack
 
@@ -63,12 +63,15 @@ frontend/
 │   │   ├── LoadingSpinner.jsx – Loading indicator
 │   │   ├── ErrorMessage.jsx   – Error state with retry
 │   │   ├── PredictionPanel.jsx– AI Energy Predictions component (Day 9)
-│   │   └── PredictionPanel.css– AI Energy Predictions styles (Day 9)
+│   │   ├── PredictionPanel.css– AI Energy Predictions styles (Day 9)
+│   │   ├── AnomalyPanel.jsx   – Anomaly Detection component (Day 10)
+│   │   └── AnomalyPanel.css   – Anomaly Detection styles (Day 10)
 │   ├── pages/
 │   │   └── Dashboard.jsx      – Main dashboard page
 │   ├── services/
 │   │   ├── api.js             – Centralized API client
-│   │   └── predictionApi.js   – Prediction API client (Day 9)
+│   │   ├── predictionApi.js   – Prediction API client (Day 9)
+│   │   └── anomalyApi.js      – Anomaly API client (Day 10)
 │   ├── App.jsx
 │   ├── main.jsx
 │   ├── index.css              – Global design tokens
@@ -86,9 +89,10 @@ frontend/
 4. **Power Chart** – Line chart showing power usage over time
 5. **Readings Table** – Tabular view of recent sensor readings
 6. **Prediction Panel (Day 9)** – Display AI-predicted next energy usage for each device
-7. **Loading State** – Spinner shown while fetching data
-8. **Error State** – Clear error message with retry button when backend is down
-9. **Empty State** – Graceful handling when no data is available
+7. **Anomaly Panel (Day 10)** – Display active anomalies and anomaly history for the system
+8. **Loading State** – Spinner shown while fetching data
+9. **Error State** – Clear error message with retry button when backend is down
+10. **Empty State** – Graceful handling when no data is available
 
 ## API Endpoints Used
 
@@ -98,3 +102,5 @@ frontend/
 | `/api/energy/readings` | GET | Recent readings (supports `?area=` filter) |
 | `/api/prediction/energy/predictions/latest` | GET | Latest AI predictions for all devices (Day 9) |
 | `/api/prediction/energy/predict` | POST | Request AI prediction for a specific device (Day 9) |
+| `/api/anomaly/latest` | GET | Latest anomaly detection results for all devices (Day 10) |
+| `/api/anomaly/check` | POST | Manual check for anomalies on provided data payload (Day 10) |

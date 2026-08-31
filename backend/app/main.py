@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routes import energy, prediction  # Day 9: prediction router added
+from .routes import energy, prediction, anomaly  # Day 10: anomaly router added
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -26,6 +26,7 @@ app.add_middleware(
 # prediction.py — prefix /api/prediction (Day 9, new)
 app.include_router(energy.router)
 app.include_router(prediction.router)  # registered ONCE
+app.include_router(anomaly.router)     # Day 10: registered ONCE
 
 
 @app.on_event("startup")
