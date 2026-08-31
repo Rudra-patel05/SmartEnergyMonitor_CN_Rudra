@@ -20,8 +20,10 @@ print(f"Testing Anomaly Detection API at {URL}")
 print("Sending test payload:")
 print(json.dumps(payload, indent=2))
 
+headers = {"X-API-Key": "iot_smart_energy_meter_key_2026_campus"}
+
 try:
-    response = requests.post(URL, json=payload)
+    response = requests.post(URL, json=payload, headers=headers)
     print("\nStatus Code:", response.status_code)
     print("Response JSON:")
     print(json.dumps(response.json(), indent=2))

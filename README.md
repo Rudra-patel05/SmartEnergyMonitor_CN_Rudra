@@ -1,202 +1,197 @@
 # 🏫 AI-Driven Smart Energy Consumption Monitoring and Prediction System for Smart Campus
 
-> **Gujarat Technological University – Computer Engineering**
-> **Subject:** Computer Networks – PBL (Complex Problem Solving Project)
+> **Gujarat Technological University – Computer Engineering**  
+> **Subject:** Computer Networks – PBL (Complex Problem Solving Project)  
+> **Repository:** `SmartEnergyMonitor_CN`  
+> **Status:** 100% Completed & Verified (Days 1 to 13)
 
 ---
 
-## 📋 Project Objective
+## 📋 Project Overview
 
-Design and develop a software-based smart-campus energy monitoring prototype that leverages **Artificial Intelligence**, **IoT simulation**, **Computer Networking**, and **Web Technologies** to monitor, predict, and optimize energy consumption across multiple campus areas.
-
----
-
-## 🔍 Problem Statement
-
-Educational institutions consume significant amounts of electrical energy across classrooms, laboratories, libraries, and administrative offices. Without a centralized, intelligent monitoring system, energy wastage goes undetected, costs escalate, and sustainability goals remain unmet.
-
-There is a need for an integrated system that can:
-
-1. **Monitor** real-time energy consumption across campus zones.
-2. **Predict** future energy demand using machine learning.
-3. **Detect anomalies** such as unusual consumption spikes or equipment faults.
-4. **Visualize** actionable insights through a web-based dashboard.
-5. **Demonstrate** computer networking concepts including VLANs, IP addressing, routing, and secure data transmission.
-
----
-
-## 🎯 Main Objectives
-
-| # | Objective |
-|---|-----------|
-| 1 | Simulate IoT-based energy meters for four campus areas using Python |
-| 2 | Design a campus network architecture with VLANs, routing, and access control |
-| 3 | Build a RESTful backend API using FastAPI with JWT authentication |
-| 4 | Store and manage energy data in an SQLite database |
-| 5 | Train ML models for energy consumption prediction and anomaly detection |
-| 6 | Develop an interactive React-based web dashboard for data visualization |
-| 7 | Implement cybersecurity best practices (encryption, authentication, input validation) |
-| 8 | Document the complete system architecture and data flow |
-
----
-
-## 💡 Proposed Solution
-
-The system consists of the following integrated layers:
+**SmartEnergyMonitor_CN** is an end-to-end smart campus energy intelligence, predictive forecasting, and secure network infrastructure platform. The system models multi-zone IoT sensor telemetry, routes data across an enterprise segmented campus network, persists time-series readings in SQLite, exposes high-speed REST APIs via FastAPI, renders a real-time React dashboard, predicts future energy consumption using XGBoost, detects consumption anomalies using Isolation Forest, and enforces multi-layer cybersecurity (JWT, API keys, structured audit logging, input validation bounds, and Cisco IOS ACLs).
 
 ```
-┌─────────────────────────────────────────────────┐
-│              Web Dashboard (React + Vite)        │
-├─────────────────────────────────────────────────┤
-│          AI / ML Layer (Scikit-learn)             │
-│       ┌──────────────┬──────────────────┐        │
-│       │  Prediction  │ Anomaly Detection │        │
-│       └──────────────┴──────────────────┘        │
-├─────────────────────────────────────────────────┤
-│           Database Layer (SQLite)                 │
-├─────────────────────────────────────────────────┤
-│       Backend API (FastAPI + JWT Auth)            │
-├─────────────────────────────────────────────────┤
-│      IoT Gateway / Network Communication         │
-├─────────────────────────────────────────────────┤
-│    Campus Network (VLANs, Routing, Firewall)     │
-├─────────────────────────────────────────────────┤
-│     Virtual IoT Energy Meters (Python Sim)       │
-└─────────────────────────────────────────────────┘
-```
-
-### Data Flow
-
-```
-Virtual IoT Energy Meters
-        ↓
-Campus Network (Simulated)
-        ↓
-IoT Gateway / Backend API
-        ↓
-Database (SQLite)
-        ↓
-AI / ML Engine
-   ┌────┴────┐
-   ↓         ↓
-Prediction  Anomaly Detection
-   └────┬────┘
-        ↓
-Web Dashboard
++----------------------------------------------------------------------------------------------------+
+|                                    CAMPUS NETWORK ARCHITECTURE                                     |
+|                                                                                                    |
+|  [VLAN 10: IoT Sensors]       [VLAN 20: Servers]       [VLAN 30: Workstations]   [VLAN 40: Mgmt]   |
+|   192.168.10.0/24              192.168.20.0/24          192.168.30.0/24           192.168.40.0/24  |
+|   (Virtual Meters)             (FastAPI + ML + DB)      (React Dashboard)         (SysAdmin SSH)   |
+|         │                             │                        │                         │         |
+|         └───────────────┬─────────────┴────────────────────────┴─────────────────────────┘         |
+|                         │ 802.1Q Trunks                                                            |
+|                   [Cisco 2960 Core Switch] ─── Gig0/1 ─── [Cisco 2911 ROAS Router]                 |
+|                   (Hardware Micro-Segmentation & Extended Access Control Lists)                   |
++----------------------------------------------------------------------------------------------------+
+                                                │
+                                                ▼
++----------------------------------------------------------------------------------------------------+
+|                                      FULL-STACK SOFTWARE STACK                                     |
+|                                                                                                    |
+|  +─────────────────────────+      HTTP/JSON + API Key       +───────────────────────────────────+  |
+|  |   Virtual IoT Meter     | ─────────────────────────────► |        FastAPI Backend API        |  |
+|  |  (5 Campus Zones Sim)   |                                |  (Auth, Telemetry, ML Routers)    |  |
+|  +─────────────────────────+                                +───────────────────────────────────+  |
+|                                                                    │              │                |
+|                                                     SQLAlchemy ORM │              │ Scikit-Learn   |
+|                                                                    ▼              ▼ / XGBoost      |
+|  +─────────────────────────+      Bearer JWT Auth           +──────────────+ +──────────────────+  |
+|  |     React Dashboard     | ◄───────────────────────────── |  SQLite DB   | | Machine Learning |  |
+|  |  (Live Charts, Alerts)  |                                | (Persistent) | | (IForest + XGB)  |  |
+|  +─────────────────────────+                                +──────────────+ +──────────────────+  |
++----------------------------------------------------------------------------------------------------+
 ```
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | React 18, Vite, Chart.js / Recharts |
-| **Backend** | Python 3.11+, FastAPI, Uvicorn |
-| **Database** | SQLite (initial), PostgreSQL (future) |
-| **AI / ML** | Scikit-learn, Pandas, NumPy |
-| **IoT Simulation** | Python (custom simulator scripts) |
-| **Network Simulation** | Cisco Packet Tracer |
-| **Authentication** | JWT (JSON Web Tokens) |
-| **API Protocol** | REST (MQTT planned for future) |
-| **Version Control** | Git + GitHub |
-| **Documentation** | Markdown |
+| Layer | Technologies / Frameworks |
+|---|---|
+| **Frontend** | React 19, Vite, Recharts, Lucide Icons, Vanilla CSS Design System |
+| **Backend** | Python 3.11+, FastAPI, Uvicorn, SQLAlchemy ORM, Pydantic v2 |
+| **Database** | SQLite (`energy.db`) with foreign key constraints & connection pooling |
+| **Machine Learning** | XGBoost (Energy Forecasting), Scikit-Learn (Isolation Forest Anomaly Detection), Pandas, NumPy |
+| **Network Infrastructure** | Cisco IOS CLI, Router-on-a-Stick (ROAS), 802.1Q Trunking, Extended ACLs (Cisco Packet Tracer 8.x) |
+| **Cybersecurity** | JWT (HS256, PBKDF2-HMAC-SHA256), Device API Keys (`X-API-Key`), Middleware Audit Logging, Strict Bounds |
 
 ---
 
-## 🏗️ High-Level Architecture
+## 📅 Project Development Roadmap (Days 1–13)
 
-The system is organized into **seven layers**, each addressing a specific concern:
-
-1. **IoT Layer** – Python-based virtual energy meters simulating power readings for four campus areas.
-2. **Network Layer** – Campus network design with VLANs, IP addressing, and routing (simulated in Cisco Packet Tracer).
-3. **Backend Layer** – FastAPI RESTful API serving as the IoT gateway and data processing engine.
-4. **Database Layer** – SQLite database storing energy readings, user accounts, and system configuration.
-5. **AI/ML Layer** – Scikit-learn models for consumption prediction (regression) and anomaly detection.
-6. **Dashboard Layer** – React + Vite single-page application for real-time visualization and reporting.
-7. **Security Layer** – JWT authentication, HTTPS, input validation, and role-based access control.
-
----
-
-## 📅 Development Phases
-
-| Phase | Description | Status |
-|-------|-------------|--------|
-| **Phase 1** | Project setup, architecture, documentation, folder structure | ✅ In Progress |
-| **Phase 2** | IoT simulator development, database schema, backend API skeleton | ⬜ Planned |
-| **Phase 3** | Backend API endpoints, data ingestion pipeline, authentication | ⬜ Planned |
-| **Phase 4** | AI/ML model training – prediction and anomaly detection | ✅ Completed |
-| **Phase 5** | React dashboard development and API integration | ✅ Completed |
-| **Phase 6** | Network simulation in Cisco Packet Tracer | ⬜ Planned |
-| **Phase 7** | Security hardening, testing, and documentation finalization | ⬜ Planned |
-| **Phase 8** | Final integration, demo preparation, and project report | ⬜ Planned |
+| Day | Milestone | Summary of Achievements | Status |
+|---|---|---|---|
+| **Day 1** | **Project Foundation** | Architecture design, repository initialization, environment setup. | ✅ Completed |
+| **Day 2** | **Virtual IoT Simulator** | 5-zone realistic energy meter generator with noise and occupancy models. | ✅ Completed |
+| **Day 3** | **FastAPI + SQLite** | REST backend, database schema, Pydantic schemas, Swagger UI. | ✅ Completed |
+| **Day 4** | **IoT-to-API HTTP Pipeline** | Automated HTTP telemetry client with batching and error recovery. | ✅ Completed |
+| **Day 5** | **ML Data Preparation** | Dataset cleaning, rolling feature engineering, temporal transformations. | ✅ Completed |
+| **Day 6** | **XGBoost Energy Prediction** | Supervised gradient boosting regression pipeline and model export. | ✅ Completed |
+| **Day 7** | **Isolation Forest Anomaly Engine** | Unsupervised anomaly model and synthetic fault evaluation benchmark. | ✅ Completed |
+| **Day 8** | **React Dashboard Foundation** | Dark-mode telemetry dashboard with live metric cards and charts. | ✅ Completed |
+| **Day 9** | **XGBoost Integration** | Real-time predictive analytics router and frontend forecasting card. | ✅ Completed |
+| **Day 10** | **Anomaly Detection Integration** | Anomaly checking endpoint, in-memory service, and dashboard alerts. | ✅ Completed |
+| **Day 11** | **Computer Network Architecture** | Enterprise VLAN 10-50 scheme, ROAS routing, and Cisco IOS ACLs. | ✅ Completed |
+| **Day 12** | **Cybersecurity & Hardening** | JWT auth, device API key validation, structured audit logger, Pydantic bounds. | ✅ Completed |
+| **Day 13** | **Final System Integration & Verification** | End-to-end testing, multi-scenario demonstration, comprehensive reports. | ✅ Completed |
 
 ---
 
-## ⚠️ Important Note: Simulated IoT Data
+## 🚀 Quickstart Guide
 
-> **This project uses SIMULATED IoT energy data generated by Python scripts.**
->
-> No physical sensors, smart meters, or IoT hardware devices are installed or required for the initial prototype. The IoT simulator generates realistic energy consumption patterns based on:
-> - Time-of-day usage profiles
-> - Campus area type (lab, classroom, library, office)
-> - Weekday vs. weekend variations
-> - Random noise for realism
->
-> This approach allows the complete system to be developed, tested, and demonstrated **without purchasing any hardware**.
+### 1. Prerequisites
+- Python 3.10+ (with `pip`)
+- Node.js 18+ (with `npm`)
 
----
+### 2. Backend Setup
+```bash
+# Navigate to backend and install requirements
+cd backend
+pip install -r requirements.txt
 
-## 🔮 Future Hardware Integration
-
-The system architecture is designed to be **hardware-ready**. In future iterations:
-
-- Physical IoT energy meters (e.g., PZEM-004T, INA219) can replace the simulator.
-- Microcontrollers (ESP32, Raspberry Pi) can be deployed as IoT gateways.
-- MQTT protocol can be integrated for real-time sensor communication.
-- The SQLite database can be migrated to PostgreSQL or a cloud database.
-- The system can be deployed on AWS / Azure / GCP for production use.
-
-The transition from simulation to physical deployment requires **minimal code changes** due to the modular, layered architecture.
-
----
-
-## 📂 Project Structure
-
+# Start FastAPI server
+python -m uvicorn app.main:app --port 8000
 ```
-SmartEnergyMonitor/
-├── backend/                  # FastAPI backend server
-├── frontend/                 # React + Vite dashboard
-├── ai/                       # ML models and training scripts
-├── iot/                      # IoT simulator scripts
-├── network/                  # Cisco Packet Tracer files, network docs
-├── docs/                     # Project documentation
-│   ├── architecture/         # System, network, and data flow diagrams
-│   ├── research/             # Research papers and references
-│   └── reports/              # Requirements, module plans, project reports
-├── .gitignore                # Git ignore rules
-└── README.md                 # This file
+* Interactive API Documentation (Swagger UI): `http://127.0.0.1:8000/docs`
+* Alternative Documentation (ReDoc): `http://127.0.0.1:8000/redoc`
+
+### 3. Frontend Dashboard Setup
+```bash
+# Navigate to frontend and start dev server
+cd frontend
+npm install
+npm run dev
+```
+* Dashboard URL: `http://127.0.0.1:5173`
+
+### 4. Running the Virtual IoT Simulator
+```bash
+# Generate and stream live simulated telemetry to the backend API
+python iot/simulator.py --readings 5 --send-api
+```
+
+### 5. Automated Verification & Testing
+```bash
+# Run End-to-End System Integration Test
+python backend/test_system_e2e.py
+
+# Run Cybersecurity & Access Control Test Suite
+python backend/test_security.py
+
+# Run Dedicated Anomaly Detection Test
+python backend/test_anomaly.py
+
+# Run Backend Unit Test
+python backend/test_api.py
 ```
 
 ---
 
-## 👨‍💻 Team
+## 🔐 Security & Access Credentials
 
-| Role | Responsibility |
-|------|---------------|
-| Full-Stack Developer | Backend API, Frontend Dashboard |
-| AI/ML Engineer | Prediction and Anomaly Detection Models |
-| Network Engineer | Campus Network Design, Cisco Packet Tracer |
-| IoT Developer | Simulator Development, Data Pipeline |
-
----
-
-## 📜 License
-
-This project is developed for academic purposes as part of the Gujarat Technological University Computer Engineering curriculum.
+| Identity / Key | Value | Role / Permissions |
+|---|---|---|
+| `X-API-Key` Header | `iot_smart_energy_meter_key_2026_campus` | IoT Telemetry Ingestion (`POST /api/energy/readings`) |
+| User: `admin` | `Admin@123!` | System Administrator (Full Access, JWT Auth) |
+| User: `operator` | `Operator@123!` | Energy Operator (Telemetry Query, Predictions) |
+| User: `auditor` | `Auditor@123!` | Security Auditor (Read-only Log Inspection) |
 
 ---
 
-*Last Updated: August 2026*
-#   S m a r t E n e r g y M o n i t o r _ C N _ R u d r a  
- 
+## 🌐 Network Architecture Highlights
+
+- **VLAN 10** (`192.168.10.0/24`): IoT Smart Meters (Gateway: `192.168.10.1`)
+- **VLAN 20** (`192.168.20.0/24`): Servers & Database (Gateway: `192.168.20.1`, Backend: `192.168.20.10`)
+- **VLAN 30** (`192.168.30.0/24`): User Workstations (Gateway: `192.168.30.1`)
+- **VLAN 40** (`192.168.40.0/27`): Network Management (Gateway: `192.168.40.1`)
+- **VLAN 50** (`192.168.50.0/27`): DMZ & Public Gateways (Gateway: `192.168.50.1`)
+- **Access Control (ACL 110)**: Strict micro-segmentation allowing IoT meters to push HTTP data only to the backend server while denying inter-VLAN access to workstations or management interfaces.
+
+---
+
+## 📂 Project Directory Structure
+
+```
+SmartEnergyMonitor_CN/
+├── ai/                               # Machine Learning Module
+│   ├── data/                         # Datasets (raw, processed, anomaly)
+│   ├── models/                       # Exported ML model artifacts (XGBoost JSON)
+│   └── src/                          # Training, preprocessing & evaluation scripts
+├── backend/                          # FastAPI Backend Application
+│   ├── app/
+│   │   ├── routes/                   # API routers (auth, energy, prediction, anomaly)
+│   │   ├── services/                 # ML inference services (anomaly_service.py)
+│   │   ├── auth.py                   # JWT & API key security logic
+│   │   ├── database.py               # SQLAlchemy database engine
+│   │   ├── logger.py                 # Structured security audit logger
+│   │   ├── main.py                   # FastAPI entrypoint & middleware
+│   │   ├── models.py                 # SQLite ORM models
+│   │   └── schemas.py                # Pydantic validation schemas
+│   ├── energy.db                     # SQLite persistent storage
+│   ├── test_security.py              # Cybersecurity test suite
+│   ├── test_system_e2e.py            # End-to-end integration test
+│   └── requirements.txt              # Python dependencies
+├── docs/                             # Project Documentation
+│   ├── architecture/                 # System and data flow diagrams
+│   ├── reports/                      # Implementation summary, testing, demo flows
+│   └── security/                     # Cybersecurity architecture & specs
+├── frontend/                         # React 19 + Vite Dashboard
+│   ├── src/                          # UI components, charts, and API client
+│   └── package.json                  # Frontend dependencies
+├── iot/                              # Virtual IoT Sensor Simulator
+│   ├── api_client.py                 # Authenticated HTTP client
+│   ├── config.py                     # Simulator configuration
+│   ├── devices.py                    # Energy meter simulation models
+│   └── simulator.py                  # Simulator CLI executable
+├── network/                          # Computer Network Architecture
+│   ├── documentation/                # IP addressing, VLAN design, routing, ACLs
+│   └── topology/                     # Cisco IOS CLI scripts & Packet Tracer guide
+└── README.md                         # Project overview
+```
+
+---
+
+## 📜 Academic Attribution & License
+
+Developed as part of the Gujarat Technological University (GTU) Computer Engineering curriculum for **Computer Networks – Complex Problem Solving (PBL)**.

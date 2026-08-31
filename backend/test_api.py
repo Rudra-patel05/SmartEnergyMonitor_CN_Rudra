@@ -20,14 +20,15 @@ valid_record = {
     "temperature": 25.4,
     "occupancy": 15
 }
-response = client.post("/api/energy/readings", json=valid_record)
+headers = {"X-API-Key": "iot_smart_energy_meter_key_2026_campus"}
+response = client.post("/api/energy/readings", json=valid_record, headers=headers)
 print(f"Status: {response.status_code}")
 print(f"Response: {response.json()}")
 
 print("\n--- 3. Testing POST /api/energy/readings (Validation Error: Negative Power) ---")
 invalid_record = valid_record.copy()
 invalid_record["power"] = -100.0
-response = client.post("/api/energy/readings", json=invalid_record)
+response = client.post("/api/energy/readings", json=invalid_record, headers=headers)
 print(f"Status: {response.status_code}")
 print(f"Response: {response.json()}")
 
