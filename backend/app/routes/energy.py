@@ -4,6 +4,7 @@ from sqlalchemy import func
 from typing import List, Optional
 from ..database import get_db
 from .. import models, schemas
+from ..auth import verify_device_credentials
 
 router = APIRouter(
     prefix="/api/energy",
@@ -11,7 +12,11 @@ router = APIRouter(
 )
 
 @router.post("/readings", response_model=schemas.EnergyReading, status_code=201)
-def create_reading(reading: schemas.EnergyReadingCreate, db: Session = Depends(get_db)):
+def create_reading(
+    reading: schemas.EnergyReadingCreate, 
+    db: Session = Depends(get_db),
+    _auth: bool = Depends(verify_device_credentials)
+):
     """
     Store a single energy reading.
     """
@@ -22,7 +27,11 @@ def create_reading(reading: schemas.EnergyReadingCreate, db: Session = Depends(g
     return db_reading
 
 @router.post("/readings/bulk", response_model=List[schemas.EnergyReading], status_code=201)
-def create_bulk_readings(readings: List[schemas.EnergyReadingCreate], db: Session = Depends(get_db)):
+def create_bulk_readings(
+    readings: List[schemas.EnergyReadingCreate], 
+    db: Session = Depends(get_db),
+    _auth: bool = Depends(verify_device_credentials)
+):
     """
     Store multiple energy readings in bulk.
     """

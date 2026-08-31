@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routes import energy, prediction, anomaly  # Day 10: anomaly router added
+from .routes import energy, prediction, anomaly, auth  # Day 10/12
+from .logger import log_invalid_payload
+import time
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -21,9 +23,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Audit/Request Logger Middleware
+@app.middleware("http")
+async def audit_logger_middleware(request: Request, call_next):
+    start_time = time.time()
+    response: Response = await call_next(request)
+    duration = time.time() - start_time
+    
+    # Audit log request summary
+    client_ip = request.client.host if request.client else "unknown"
+    # Log bad request inputs
+    if response.status_code == 422:
+        log_invalid_payload(request.url.path, "Validation failed (HTTP 422)", client_ip)
+    
+    return response
+
 # Include routes
-# energy.py  — prefix /api/energy  (Day 8, untouched)
-# prediction.py — prefix /api/prediction (Day 9, new)
+app.include_router(auth.router)        # Day 12 Auth
 app.include_router(energy.router)
 app.include_router(prediction.router)  # registered ONCE
 app.include_router(anomaly.router)     # Day 10: registered ONCE

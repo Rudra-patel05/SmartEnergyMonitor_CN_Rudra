@@ -23,6 +23,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..schemas import PredictionRequest, PredictionResponse
 from ..services import prediction_service
+from ..auth import verify_device_credentials
 
 router = APIRouter(
     prefix="/api/prediction",
@@ -44,6 +45,7 @@ router = APIRouter(
 def predict_energy(
     request: PredictionRequest,
     db: Session = Depends(get_db),
+    _auth: bool = Depends(verify_device_credentials)
 ):
     """
     POST /api/prediction/energy/predict

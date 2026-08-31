@@ -1,15 +1,17 @@
 import requests
 from typing import List, Dict, Any
+from config import API_KEY
 
 class ApiClient:
     def __init__(self, base_url: str = "http://127.0.0.1:8000"):
         self.base_url = base_url.rstrip("/")
+        self.headers = {"X-API-Key": API_KEY}
 
     def send_reading(self, reading: Dict[str, Any]) -> bool:
         """Sends a single reading to the backend API."""
         url = f"{self.base_url}/api/energy/readings"
         try:
-            response = requests.post(url, json=reading, timeout=5)
+            response = requests.post(url, json=reading, headers=self.headers, timeout=5)
             if response.status_code == 201:
                 return True
             elif response.status_code == 422:
@@ -29,7 +31,7 @@ class ApiClient:
         """Sends multiple readings to the backend API in bulk."""
         url = f"{self.base_url}/api/energy/readings/bulk"
         try:
-            response = requests.post(url, json=readings, timeout=10)
+            response = requests.post(url, json=readings, headers=self.headers, timeout=10)
             if response.status_code in (200, 201):
                 return True
             elif response.status_code == 422:

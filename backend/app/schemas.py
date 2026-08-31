@@ -73,17 +73,9 @@ class PredictionResponse(BaseModel):
 # Day 10 — Anomaly detection schemas
 # ---------------------------------------------------------------------------
 
-class AnomalyCheckRequest(BaseModel):
+class AnomalyCheckRequest(EnergyReadingBase):
     """Request body for POST /api/anomaly/check."""
-    device_id: str = Field(..., description="Unique identifier for the device", min_length=3)
-    area: str = Field(..., description="Campus area name")
-    timestamp: str = Field(..., description="Timestamp of the reading")
-    voltage: float = Field(..., description="Voltage in Volts")
-    current: float = Field(..., description="Current in Amperes")
-    power: float = Field(..., description="Power in Watts")
-    energy: float = Field(..., description="Cumulative energy in kWh")
-    temperature: float = Field(..., description="Temperature in Celsius")
-    occupancy: int = Field(..., description="Occupancy count")
+    pass
 
 
 class AnomalyResponse(BaseModel):
@@ -94,3 +86,30 @@ class AnomalyResponse(BaseModel):
     anomaly_flag: int = Field(..., description="1 if anomaly detected, 0 if normal")
     anomaly_score: float = Field(..., description="Anomaly score from Isolation Forest")
     status: str = Field(..., description="'ANOMALY' or 'NORMAL'")
+
+# ---------------------------------------------------------------------------
+# Day 12 — Authentication & Cybersecurity schemas
+# ---------------------------------------------------------------------------
+
+class LoginRequest(BaseModel):
+    """Credentials payload for JWT authentication."""
+    username: str = Field(..., min_length=3, max_length=50, description="User username")
+    password: str = Field(..., min_length=6, description="User password")
+
+
+class TokenResponse(BaseModel):
+    """JWT Token issuance response."""
+    access_token: str = Field(..., description="Signed JSON Web Token")
+    token_type: str = Field("bearer", description="Token type")
+    expires_in_minutes: int = Field(..., description="Token validity window in minutes")
+    role: str = Field(..., description="User role (admin, operator)")
+    username: str = Field(..., description="Authenticated username")
+
+
+class AuthStatusResponse(BaseModel):
+    """Current authentication and security system status."""
+    status: str
+    auth_mode: str
+    jwt_algorithm: str
+    device_auth_enabled: bool
+    active_users: List[str]

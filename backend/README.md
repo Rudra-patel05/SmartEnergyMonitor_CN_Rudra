@@ -72,15 +72,18 @@ FastAPI automatically generates interactive API documentation. Once the server i
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/energy/readings` | Submit a single energy reading |
-| `POST` | `/api/energy/readings/bulk` | Submit multiple readings at once |
+| `POST` | `/api/energy/readings` | Submit a single energy reading (Requires device API-Key) |
+| `POST` | `/api/energy/readings/bulk` | Submit multiple readings at once (Requires device API-Key) |
 | `GET` | `/api/energy/readings` | Retrieve readings (supports filtering by `device_id`, `area`) |
 | `GET` | `/api/energy/{device_id}` | Retrieve readings for a specific device |
 | `GET` | `/api/energy/summary` | Get aggregated summary statistics |
-| `POST` | `/api/prediction/energy/predict` | Predict next energy for a device using XGBoost (Day 9) |
+| `POST` | `/api/prediction/energy/predict` | Predict next energy for a device using XGBoost (Day 9, Auth Required) |
 | `GET` | `/api/prediction/energy/predictions/latest` | Get latest predictions for all devices (Day 9) |
-| `POST` | `/api/anomaly/check` | Check anomaly status for a specific feature payload (Day 10) |
+| `POST` | `/api/anomaly/check` | Check anomaly status for a specific feature payload (Day 10, Auth Required) |
 | `GET` | `/api/anomaly/latest` | Get latest anomaly status for all devices (Day 10) |
+| `POST` | `/api/auth/token` | User login and JWT access token generation (Day 12) |
+| `POST` | `/api/auth/verify` | Verify active JWT token validity (Day 12) |
+| `GET` | `/api/auth/status` | Get API server security parameters and auth status (Day 12) |
 
 ## Example Request (Single Reading)
 

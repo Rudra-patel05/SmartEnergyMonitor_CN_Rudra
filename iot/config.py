@@ -105,3 +105,9 @@ DEVICE_CONFIGS: List[Dict[str, Any]] = [
         "temp_occupied_boost": 1.0,   # Fewer people, less heat
     },
 ]
+
+# ============================================================
+# Device Credentials / Security (Day 12)
+# ============================================================
+# API key to authenticate requests sent to FastAPI
+API_KEY: str = os.getenv("SMART_ENERGY_API_KEY", "iot_smart_energy_meter_key_2026_campus")

@@ -220,6 +220,15 @@ iot/
 
 ---
 
+## Device Authentication (Day 12)
+
+Virtual IoT devices are authenticated at the FastAPI Backend Ingestion API using a pre-shared **`X-API-Key`** header:
+- The key is configured via the environment variable `SMART_ENERGY_API_KEY` (falls back to a default academic key in `iot/config.py`).
+- The `ApiClient` automatically appends this header to all `POST` requests.
+- Requests sent without a valid key are rejected by the backend with an `HTTP 401 Unauthorized` status code.
+
+---
+
 ## Validation
 
 The simulator validates every generated reading:
@@ -237,4 +246,4 @@ Any validation errors are printed to the console during simulation.
 
 ---
 
-*Module Version: 1.0 | Created: August 2026*
+*Module Version: 1.1 | Created: August 2026 | Day 12 Updated*

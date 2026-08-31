@@ -7,6 +7,7 @@ from ..database import get_db
 from .. import models
 from ..schemas import AnomalyCheckRequest, AnomalyResponse
 from ..services.anomaly_service import anomaly_service
+from ..auth import verify_device_credentials
 
 router = APIRouter(
     prefix="/api/anomaly",
@@ -14,7 +15,11 @@ router = APIRouter(
 )
 
 @router.post("/check", response_model=AnomalyResponse)
-def check_anomaly(request: AnomalyCheckRequest, db: Session = Depends(get_db)):
+def check_anomaly(
+    request: AnomalyCheckRequest, 
+    db: Session = Depends(get_db),
+    _auth: bool = Depends(verify_device_credentials)
+):
     """
     Checks if a given telemetry reading is anomalous.
     Uses the in-memory trained Isolation Forest model.
